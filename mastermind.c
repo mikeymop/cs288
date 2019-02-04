@@ -71,19 +71,17 @@ int main(int argc, char *argv[]) {
     int numExisting = 0;
 
     if(argc < 2) {
-        printf("Please pick a four-color code using the provided colors");
+        printf("Please pick a four-color code using the provided colors\n");
         return 1;
     } else if(argc == 2) {
         code = argv[1];
-        printf("Your code is %s\n", code);
-        //return 2;
     }
 
     while (tries > 0) {
         prompt(guess, tries);
         if(testCode(code, guess, tries, numPosition, numExisting) == diff) {
             printf("\nYOU WIN!\n");
-            break;
+            return 0;
         }
         --tries;
     }
