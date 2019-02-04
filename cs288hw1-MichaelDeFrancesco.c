@@ -87,5 +87,6 @@ int main(int argc, char *argv[]) {
         }
         --tries;
     }
+    printf("YOU LOSE! The code is %s\n", code);
     return 0;
 }
