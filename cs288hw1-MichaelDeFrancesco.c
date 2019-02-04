@@ -1,10 +1,15 @@
 #include <stdio.h>
 
-/*
-Create Codebreaker.
-   ./codebreaker [4 digit code] eg. ./codebreaker BGGY
-   Player 2 has 12 tries to guess the code.
+/* Program mastermind.c
 
+Emulates the old Mastermind codebreaking game.
+Run the game with a 4 character argument.
+Define the difficulty and number of guesses
+before compiling.
+
+Michael A. DeFrancesco II, NJIT, Feb 4, 2019
+*/
+/*
 enum Color {
     B = "Blue",
     G = "Green",
@@ -58,12 +63,12 @@ void prompt(char* guess, int tries) {
 
 int main(int argc, char *argv[]) {
 
-    char guess[5];
+    int diff = DIFFICULTY;
+    int tries = MAX_GUESSES;
+    char guess[tries+1];
     char *code = NULL;
     int numPosition = 0;
     int numExisting = 0;
-    int diff = DIFFICULTY;
-    int tries = MAX_GUESSES;
 
     if(argc < 2) {
         printf("Please pick a four-color code using the provided colors");
