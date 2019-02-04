@@ -49,7 +49,7 @@ int testCode(char* c, char* g, int nG, int nPos, int nExist) {
     }
 
     nG = nG - 1;
-    printf("Feedback: (%d,%d)\n", nPos, nExist);
+    printf("%8sFeedback: %d, %d\n","", nPos, nExist);
     return nPos;
 };
 
@@ -80,7 +80,7 @@ int main(int argc, char *argv[]) {
     while (tries > 0) {
         prompt(guess, tries);
         if(testCode(code, guess, tries, numPosition, numExisting) == diff) {
-            printf("\nYOU WIN!\n");
+            printf("YOU WIN!\n");
             return 0;
         }
         --tries;
