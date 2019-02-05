@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 /* Program mastermind.c
 Emulates the old Mastermind codebreaking game.
 Run the game with a 4 character argument.
@@ -18,6 +16,7 @@ enum Color {
     Y = "Yellow"
 }
 */
+#include <stdio.h>
 
 #define MAX_GUESSES 12;
 #define DIFFICULTY 4;
@@ -55,8 +54,7 @@ int testCode(char* c, char* g, int nG, int nPos, int nExist) {
 };
 
 void prompt(char* guess, int tries) {
-    printf("\nAvailable colors: (B)lue (G)reen (O)range (P)urple (R)ed (Y)ellow\n\n");
-    printf("No. Guesses Left: %d", tries);
+    printf("\nNo. Guesses Left: %d", tries);
     printf("\nEnter your guess: ");
     scanf("%5s", guess); /* synonym to &guess[0] */
 }
@@ -74,6 +72,8 @@ int main(int argc, char *argv[]) {
         printf("Please pick a four-color code using the provided colors\n");
         return 1;
     } else if(argc == 2) { code = argv[1]; }
+
+    printf("Available colors: (B)lue (G)reen (O)range (P)urple (R)ed (Y)ellow\n");
 
     while (tries > 0) {
         prompt(guess, tries);
