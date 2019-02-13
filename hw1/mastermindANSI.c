@@ -23,11 +23,10 @@ enum Color {
 
 /* return 1 if a is in array b, 0 if not */
 int isIn(char a, char* b) {
-    int i;
+    int i, result;
     for(i = 0; b[i] != '\0'; i++) {
-        if(a == b[i]) return 1;
+        if(a == b[i]) return result + 1;
     }
-    return 0;
 }
 /* DONT NEED
 *  check if char a is in array b, return the occurance */
@@ -43,8 +42,8 @@ int testCode(char* c, char* g, int nG, int nPos, int nExist) {
     /* take the color code into c */
     int i = 0;
     for(i=0; g[i]!= '\0'; i++) {
-        if(c[i] == g[i]) nPos++;
-        else if(isIn(c[i], g)) nExist++;
+        if(g[i] == c[i]) nPos++;
+        if(isIn(g[i], c) == 1) nExist++;
         /*(c[i] == g[i]) ? nPos++ : (!isIn(c[i], g)) ?: nExist++;
         see: http://gg.gg/ternaryC */
     }
