@@ -23,10 +23,11 @@ enum Color {
 
 /* return 1 if a is in array b, 0 if not */
 int isIn(char a, char* b) {
-    int i, result;
+    int i, result = 0;
     for(i = 0; b[i] != '\0'; i++) {
         if(a == b[i]) return result + 1;
     }
+    return result;
 }
 /* DONT NEED
 *  check if char a is in array b, return the occurance */

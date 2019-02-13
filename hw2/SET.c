@@ -83,7 +83,17 @@ int SET_contains(struct Set *set, int element) {
 }
 
 struct Set SET_union(struct Set s, struct Set t) {
+    /* returns the union of set s and t */
+    struct Set nset = SET_new();
 
+    int val;
+    struct Node *i;
+
+    for(i = s.head; i != NULL; i = i->next) {
+        val = t.Node->item;
+        SET_add(&s, val);
+    }
+    return nset;
 }
 
 struct Set SET_intersection(struct Set s, struct Set t) {
@@ -137,41 +147,41 @@ void SET_print(struct Set *set) {
 
 int main() {
     struct Set mset = SET_new();
+    struct Set nset = SET_new();
+
     int i, i2, i3, i4, i5;
 
     SET_add(&mset, 1);
-    SET_add(&mset, 2);
-    i = SET_cardinality(&mset);
+    SET_add(&nset, 1);
     SET_add(&mset, 3);
-    i2 = SET_cardinality(&mset);
+    SET_add(&nset, 3);
     SET_add(&mset, 3);
-    i3 = SET_cardinality(&mset);
-    SET_add(&mset, 4);
-    i4 = SET_cardinality(&mset);
+    SET_add(&mset, 11);
+    SET_add(&nset, 11);
+    SET_add(&nset, 4);
     SET_add(&mset, 10);
-    i5 = SET_cardinality(&mset);
-
-    printf("%d, %d, %d, %d, %d\n", i, i2, i3, i4, i5);
 
     i = SET_cardinality(&mset);
     printf("%d\n", i);
 
-    SET_remove(&mset, 4);
-
     if(SET_contains(&mset, 10)) {
         printf("Has ten\n");
     }
-    if(SET_contains(&mset, 3)) {
-        printf("Has 3\n");
+    if(SET_contains(&nset, 11)) {
+        printf("Has 11\n");
     }
-
     SET_print(&mset);
+
     int min;
     min = SET_min(&mset);
     int max;
     max = SET_max(&mset);
     printf("Min value is %d\n", min);
     printf("Max value is %d\n", max);
+
+    SET_union(mset, nset);
+
+    SET_print(&mset);
 
     return 0;
 }
