@@ -83,6 +83,7 @@ int SET_contains(struct Set *set, int element) {
 }
 
 struct Set SET_union(struct Set s, struct Set t) {
+
 }
 
 struct Set SET_intersection(struct Set s, struct Set t) {
@@ -108,6 +109,18 @@ int SET_min(struct Set *set) {
 }
 
 int SET_max(struct Set *set) {
+    /* return from the set the element of lowest value */
+
+    int t = set->head->item;
+    struct Node *i;
+    for(i = set->head; i != NULL; i = i->next) {
+        if( t < i->item) {
+            t = i->item;
+            continue;
+        }
+        continue;
+    }
+    return t;
 }
 
 void SET_print(struct Set *set) {
@@ -143,7 +156,7 @@ int main() {
     i = SET_cardinality(&mset);
     printf("%d\n", i);
 
-    SET_remove(&mset, 10);
+    SET_remove(&mset, 4);
 
     if(SET_contains(&mset, 10)) {
         printf("Has ten\n");
@@ -155,6 +168,10 @@ int main() {
     SET_print(&mset);
     int min;
     min = SET_min(&mset);
+    int max;
+    max = SET_max(&mset);
     printf("Min value is %d\n", min);
+    printf("Max value is %d\n", max);
 
+    return 0;
 }
