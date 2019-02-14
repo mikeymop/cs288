@@ -20,7 +20,7 @@ struct Set SET_new() {
 }
 
 void SET_add(struct Set *set, int element) {
-    
+
     if(set->head == NULL) {
         struct Node *nnode = malloc(sizeof(struct Node));
         nnode->item = element;
@@ -50,12 +50,33 @@ void SET_remove(struct Set *set, int element) {
     /* scan across the set, find element*/
     struct Node *i;
     struct Node *prev;
-    for(i = set->head; i != NULL; i = i->next) {
-        if(element == i->item) {
-            prev->next = i->next;
-            return;
+
+    /* first element? */
+    if(element == set->head->item) {
+        prev = set->head;
+        i = set->head->next;
+        free(set->head);
+        set->head = i;
+        return;
+    }
+
+    if(element == set->tail->item) {
+        /*get 2nd to last element */
+        for(i = set->head; i != set->tail; i = i->next)
+            prev = i;
+        free(prev->next);
+        prev->next = NULL;
+        set->tail = prev;
+        return;
+    } else {
+        for(i = set->head; i != NULL; i = i->next) {
+            if(element == i->item) {
+                prev->next = i->next;
+                free(i);
+            }
+            prev = i;
         }
-        prev = i;
+        return;
     }
     /* set element equal the elements next */
 }
@@ -138,14 +159,6 @@ struct Set SET_difference(struct Set s, struct Set t) {
             SET_add(&nset, val);
         }
     }
-    for(i = t.head; i != NULL; i = i->next) {
-        val = i->item;
-        if(SET_contains(&s, val)) {
-            continue;
-        } else {
-            SET_add(&nset, val);
-        }
-    }
     return nset;
 }
 
@@ -196,9 +209,10 @@ int main() {
     struct Set nset = SET_new();
     struct Set iset = SET_new();
     struct Set uset = SET_new();
-    struct Set dset = SET_new();
+    struct Set dset1 = SET_new();
+    struct Set dset2 = SET_new();
 
-    int i, i2, i3, i4, i5;
+    int i;
 
     SET_add(&mset, 1);
     SET_add(&nset, 1);
@@ -212,13 +226,13 @@ int main() {
     SET_add(&mset, 10);
 
     i = SET_cardinality(&mset);
-    printf("%d\n", i);
+    printf("Cardin: %d\n", i);
 
     if(SET_contains(&mset, 10)) {
         printf("Has ten\n");
     }
-    if(SET_contains(&nset, 11)) {
-        printf("Has 11\n");
+    if(!SET_contains(&nset, 5)) {
+        printf("Does not have 5\n");
     }
     SET_print(&mset);
 
@@ -236,13 +250,27 @@ int main() {
 
     iset = SET_intersection(mset, nset);
     uset = SET_union(mset, nset);
-    dset = SET_difference(mset, nset);
+    dset1 = SET_difference(mset, nset);
+    dset2 = SET_difference(nset, mset);
     printf("\niset: ");
     SET_print(&iset);
     printf("\nuset: ");
     SET_print(&uset);
-    printf("\ndset: ");
-    SET_print(&dset);
+    printf("\nmset - nset: ");
+    SET_print(&dset1);
+    printf("nset - mset: ");
+    SET_print(&dset2);
+
+    printf("Remove from front of set\n");
+    SET_remove(&uset, 1);
+    SET_print(&uset);
+    printf("Remove from middle of set\n");
+    SET_remove(&uset, 12);
+    SET_print(&uset);
+    printf("Remove from end of set\n");
+    SET_remove(&uset, 4);
+    SET_print(&uset);
+
 
     return 0;
 }
