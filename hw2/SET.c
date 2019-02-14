@@ -205,6 +205,8 @@ void SET_print(struct Set *set) {
 
 
 int main() {
+
+/*
     struct Set mset = SET_new();
     struct Set nset = SET_new();
     struct Set iset = SET_new();
@@ -271,6 +273,13 @@ int main() {
     SET_remove(&uset, 4);
     SET_print(&uset);
 
-
+    printf("Remove all shit from one set\n");
+    SET_remove(&uset, 3);
+    SET_remove(&uset, 11);
+    SET_remove(&uset, 10);
+    SET_print(&uset);
+    SET_add(&uset, 10);
+    SET_print(&uset);
+*/
     return 0;
 }
