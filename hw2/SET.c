@@ -89,18 +89,64 @@ struct Set SET_union(struct Set s, struct Set t) {
     int val;
     struct Node *i;
 
+    /* get elements from s into nset */
     for(i = s.head; i != NULL; i = i->next) {
-        val = t.Node->item;
-        SET_add(&s, val);
+        val = i->item;
+        if(SET_contains(&nset, val)) 
+            continue;
+        SET_add(&nset, val);
+    }
+    for(i = t.head; i != NULL; i = i->next) {
+        val = i->item;
+        if(SET_contains(&nset, val))
+            continue;
+        SET_add(&nset, val);
     }
     return nset;
 }
 
 struct Set SET_intersection(struct Set s, struct Set t) {
+    /* returns the union of set s and t */
+    struct Set nset = SET_new();
+
+    int val;
+    struct Node *i;
+
+    /* get elements from s into nset */
+    for(i = s.head; i != NULL; i = i->next) {
+        val = i->item;
+        if(SET_contains(&t, val)) {
+            SET_add(&nset, val);
+        }
+    }
+    return nset;
 }
 
 struct Set SET_difference(struct Set s, struct Set t) {
     /* return s - t */
+    struct Set nset = SET_new();
+
+    int val;
+    struct Node *i;
+
+    /* sort out the elements for difference */
+    for(i = s.head; i != NULL; i = i->next) {
+        val = i->item;
+        if(SET_contains(&t, val)) {
+            continue;
+        } else {
+            SET_add(&nset, val);
+        }
+    }
+    for(i = t.head; i != NULL; i = i->next) {
+        val = i->item;
+        if(SET_contains(&s, val)) {
+            continue;
+        } else {
+            SET_add(&nset, val);
+        }
+    }
+    return nset;
 }
 
 int SET_min(struct Set *set) {
@@ -148,6 +194,9 @@ void SET_print(struct Set *set) {
 int main() {
     struct Set mset = SET_new();
     struct Set nset = SET_new();
+    struct Set iset = SET_new();
+    struct Set uset = SET_new();
+    struct Set dset = SET_new();
 
     int i, i2, i3, i4, i5;
 
@@ -158,6 +207,7 @@ int main() {
     SET_add(&mset, 3);
     SET_add(&mset, 11);
     SET_add(&nset, 11);
+    SET_add(&nset, 12);
     SET_add(&nset, 4);
     SET_add(&mset, 10);
 
@@ -179,9 +229,20 @@ int main() {
     printf("Min value is %d\n", min);
     printf("Max value is %d\n", max);
 
-    SET_union(mset, nset);
-
+    printf("mset: ");
     SET_print(&mset);
+    printf("\nnset: ");
+    SET_print(&nset);
+
+    iset = SET_intersection(mset, nset);
+    uset = SET_union(mset, nset);
+    dset = SET_difference(mset, nset);
+    printf("\niset: ");
+    SET_print(&iset);
+    printf("\nuset: ");
+    SET_print(&uset);
+    printf("\ndset: ");
+    SET_print(&dset);
 
     return 0;
 }
