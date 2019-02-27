@@ -20,9 +20,10 @@ struct Set SET_new() {
 }
 
 void SET_add(struct Set *set, int element) {
+    struct Node *i;
+    struct Node *nnode = malloc(sizeof(struct Node));
 
     if(set->head == NULL) {
-        struct Node *nnode = malloc(sizeof(struct Node));
         nnode->item = element;
         nnode->next = NULL;
         set->head = nnode;
@@ -31,7 +32,7 @@ void SET_add(struct Set *set, int element) {
     }
 
     /* scan across the set for the element */
-    struct Node *i;
+
     for(i = set->head; i != NULL; i = i->next) {
         if(element == i->item) {
             i->item = element;
@@ -39,7 +40,6 @@ void SET_add(struct Set *set, int element) {
         }
     }
     /* create node at end of set */ 
-    struct Node *nnode = malloc(sizeof(struct Node));
     nnode->item = element;
     nnode->next = NULL;
     set->tail->next = nnode;
@@ -59,7 +59,7 @@ void SET_remove(struct Set *set, int element) {
         set->head = i;
         return;
     }
-
+    /* last element? */
     if(element == set->tail->item) {
         /*get 2nd to last element */
         for(i = set->head; i != set->tail; i = i->next)
@@ -128,10 +128,9 @@ struct Set SET_union(struct Set s, struct Set t) {
 
 struct Set SET_intersection(struct Set s, struct Set t) {
     /* returns the union of set s and t */
-    struct Set nset = SET_new();
-
     int val;
     struct Node *i;
+    struct Set nset = SET_new();
 
     /* get elements from s into nset */
     for(i = s.head; i != NULL; i = i->next) {
@@ -145,10 +144,9 @@ struct Set SET_intersection(struct Set s, struct Set t) {
 
 struct Set SET_difference(struct Set s, struct Set t) {
     /* return s - t */
-    struct Set nset = SET_new();
-
     int val;
     struct Node *i;
+    struct Set nset = SET_new();
 
     /* sort out the elements for difference */
     for(i = s.head; i != NULL; i = i->next) {
@@ -193,9 +191,10 @@ int SET_max(struct Set *set) {
 }
 
 void SET_print(struct Set *set) {
-    printf("{ ");
     int t;
     struct Node *i;
+
+    printf("{ ");
     for(i = set->head; i != NULL; i = i->next) {
         t = i->item;
         printf("%d, ", t);
@@ -206,7 +205,6 @@ void SET_print(struct Set *set) {
 
 int main() {
 
-/*
     struct Set mset = SET_new();
     struct Set nset = SET_new();
     struct Set iset = SET_new();
@@ -215,6 +213,8 @@ int main() {
     struct Set dset2 = SET_new();
 
     int i;
+    int min;
+    int max;
 
     SET_add(&mset, 1);
     SET_add(&nset, 1);
@@ -238,9 +238,8 @@ int main() {
     }
     SET_print(&mset);
 
-    int min;
+
     min = SET_min(&mset);
-    int max;
     max = SET_max(&mset);
     printf("Min value is %d\n", min);
     printf("Max value is %d\n", max);
@@ -280,6 +279,6 @@ int main() {
     SET_print(&uset);
     SET_add(&uset, 10);
     SET_print(&uset);
-*/
+
     return 0;
 }
