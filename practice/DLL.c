@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
-/* self-referential structure */
+/* Doubly Linked List is defined by list where every
+   node has a pointer to the next and previous element */
 struct Node {
 	int item;
 	struct Node *next;
@@ -39,7 +39,6 @@ int DLL_empty(struct List *list) {
 
 int DLL_pop(struct List *list) {
 	/* remove and return the first item of the list */
-	/* Fix me! I'm not tail aware */
 	struct Node *node = list->head;
 	int item = node->item;
 	list->head = node->next;
@@ -53,14 +52,7 @@ void DLL_clear(struct List *list) {
 		DLL_pop(list);
 	}
 }
-/*
-void DLL_push(struct List *list, int item) {
-	struct Node *node = malloc(sizeof(struct Node));
-	node->item = item;
-	list->head->prev = node;
-	node->next = list->head;
-	list->head = node;
-}*/
+
 void DLL_push(struct List *list, int item) {
 	/* push item to the front of the list */
     struct Node *node = malloc(sizeof(struct Node));
@@ -115,7 +107,6 @@ void DLL_remove(struct List *list, int item) {
 	}
 }
 
-
 int main() {
 	int i, d;
 	struct List list = DLL_new();
@@ -129,7 +120,6 @@ int main() {
 	DLL_push(&list, d);
 
 	DLL_print(&list);
-
 
 	return 0;
 }
