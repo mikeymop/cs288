@@ -13,11 +13,31 @@ except:
     filename = str(getDate())
     print("File not found, assuming: ")
 
+"""
 filename +=".html"
-
 try:
-ifile = open(filename, r)
+    ifile = open(filename, r)
 except:
     print("I tried, I simply cannot find " + filename)
+"""
 
-cdom = parse(ifile)
+ifile = open(filename, "r")
+cdom = xml.parse(ifile)
+
+table = cdom.getElementsByTagName("table")
+
+for row in table:
+    tr = row.getElementsByTagName("tr")
+
+    for cell in tr:
+        incel = cell.getElementsByTagName("td")
+
+        for data in incel:
+            if data.nodeType != data.TEXT_NODE:
+                for a in data.getElementsByTagName("a"):
+                    name = a.firstChild
+                    print(name.nodeValue)
+            print(data.firstChild.nodeValue)
+
+#print(data)
+cdom.unlink()
