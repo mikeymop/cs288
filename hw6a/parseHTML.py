@@ -1,4 +1,4 @@
-import os, sys, csv, time
+import os, sys, time
 import xml.dom.minidom as xml
 
 def getDate():

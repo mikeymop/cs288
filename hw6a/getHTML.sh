@@ -5,7 +5,8 @@ getDate() {
 }
 
 doStuff() {
-    
+    fname=`getDate`.html
+    sname=`getDate`.xhtml
     echo "Downloading ${fname}"
     `wget ${url} -O ${fname} &> /dev/null`
     if [ ! -f "tagsoup-1.2.1.jar" ]
@@ -21,14 +22,12 @@ doStuff() {
 }
 
 url="http://wsj.com/mdc/public/page/2_3021-activnnm-actives.html"
-fname=`getDate`.html
-sname=`getDate`.xhtml
 
 i=1
 while [ $i -le 60 ]
 do
     doStuff
     i=$(( $i + 1 ))
-    echo "I'll check again in an hour..."
-    sleep 1h
+    echo "I'll check again in a minute..."
+    sleep 1m
 done
