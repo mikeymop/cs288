@@ -33,6 +33,8 @@ def insert_row(cursor, csvrow):
         ON DUPLICATE KEY UPDATE
         exchange={0}, rank={1},symbol={1},company={2},volume={3},price={4},change={5}
     """
+    cursor.execute(query, csvrow)
+
 arg = sys.argv
 
 try:
