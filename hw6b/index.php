@@ -3,8 +3,13 @@
     <title>SQL SELECT Statement</title>
 </head>
 <style>
-  th {background: gray;}
-  th a {color: white;}
+  table { font-family: OpenSans-Regular, Sans; margin: center; border-collapse: collapse; border: 0px solid transparent; border-spacing: 1; border-radius: 10px; background: #36304a; }
+  th { background: #36304a; border-radius: 10px; border: 0px solid transparent; overflow: hidden; line-height: 1.2 font-size: 15px; padding: 4px; }
+  th a { padding: 4px; color: #fff; }
+  tr {background: white; border: 0px solid transparent; }
+  tr:hover { color: #555555; background-color: #f5f5f5; cursor: pointer; }
+  td { padding: 4px; border: 1px solid; }
+  h1 { font-family: OpenSans-Regular, Sans; }
 </style>
 <body>
 <h1 align="center">NASDAQ's Most Active Stocks</h1>
@@ -45,7 +50,6 @@
               <td align="right">' . $row['chng'] .'</td>';
         echo '</tr>';
     }
-
     $cnx->close();
 ?>
 </table>
