@@ -78,3 +78,7 @@ Ternary Operators
 * [Testing Env](https://www.db-fiddle.com/f/ksfY8h7c2KwDp15PEXmPXo/3)
 * [Delete/Update SQL](https://www.guru99.com/delete-and-update.html)
 * [MySQL Python Docs](https://dev.mysql.com/doc/connector-python/en/connector-python-api-mysqlcursor-execute.html)
+* [PHP Sorting](https://stackoverflow.com/questions/3489783/how-to-sort-rows-of-html-table-that-are-called-from-mysql)
+* [PHP Case](https://www.w3schools.com/php/php_switch.asp)
+* [Append PHP String](https://www.tutorialrepublic.com/faq/how-to-append-a-string-in-php.php)
+* [Better Looking Tables](https://colorlib.com/etc/tb/Table_Responsive_v1/index.html)
