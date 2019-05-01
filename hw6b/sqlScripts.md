@@ -34,6 +34,12 @@ WHERE
     condition;
 ```
 
+### Sample Sort Statement
+```sql
+select * from stocks
+order by (volume) desc;
+```
+
 ### Better statements
 ```sql
 INSERT INTO stocks(rank, exchange, symbol, company, volume, price, chng)
@@ -62,8 +68,16 @@ set
 where
      rank = 1;
 ```
+### PHP Tricks
+Ternary Operators
+```php
+<?php echo (($_GET['ad']=='asc')? 'desc' : 'asc';)?>
+```
+
 
 ### Notes
+
+* [Passing Query Strings in HTML Tags with PHP](https://stackoverflow.com/questions/45628071/html-table-php-mysql-toggle-mysql-sorting-order-asc-desc-on-column-header-click)
 
 https://dev.mysql.com/doc/refman/8.0/en/insert-on-duplicate.html
 https://www.db-fiddle.com/f/ksfY8h7c2KwDp15PEXmPXo/3
