@@ -15,7 +15,7 @@ CREATE TABLE stocks (
 ### Alter Columns
 ```sql
 ALTER TABLE  stocks
-CHANGE price price decimal(4,2);
+CHANGE price price decimal(5,2);
 ```
 ### Sample input statement
 ```sql
@@ -48,11 +48,6 @@ ON DUPLICATE KEY UPDATE
 rank = 2, exchange='nasdaq', symbol='AMD', company='Advanced Micro Devices',volume=71500380, price=12.48,chng=-01.12;
 
 INSERT INTO stocks(rank, exchange, symbol, company, volume, price, chng)
-VALUES (1, 'nasdaq', 'INTC','Intel',71500381, 52.43, 1.1)
-ON DUPLICATE KEY UPDATE 
-volume=71500380, chng=-01.12;
-
-INSERT INTO stocks(rank, exchange, symbol, company, volume, price, chng)
 VALUES (1, 'nasdaq', 'AMD','Advanced Micro Devices',71500381, 12.48, -01.12)
 ON DUPLICATE KEY UPDATE 
 rank = 2, exchange='nasdaq', symbol='AMD', company='Advanced Micro Devices',volume=71500380, price=12.48,chng=-01.12;
@@ -78,8 +73,8 @@ Ternary Operators
 ### Notes
 
 * [Passing Query Strings in HTML Tags with PHP](https://stackoverflow.com/questions/45628071/html-table-php-mysql-toggle-mysql-sorting-order-asc-desc-on-column-header-click)
-
-https://dev.mysql.com/doc/refman/8.0/en/insert-on-duplicate.html
-https://www.db-fiddle.com/f/ksfY8h7c2KwDp15PEXmPXo/3
-https://www.guru99.com/delete-and-update.html
-https://dev.mysql.com/doc/connector-python/en/connector-python-api-mysqlcursor-execute.html
+* [Bash on button press HTML](https://stackoverflow.com/questions/6235785/run-a-shell-script-with-an-html-button)
+* [MYSQL Insert On Duplicate](https://dev.mysql.com/doc/refman/8.0/en/insert-on-duplicate.html)
+* [Testing Env](https://www.db-fiddle.com/f/ksfY8h7c2KwDp15PEXmPXo/3)
+* [Delete/Update SQL](https://www.guru99.com/delete-and-update.html)
+* [MySQL Python Docs](https://dev.mysql.com/doc/connector-python/en/connector-python-api-mysqlcursor-execute.html)
