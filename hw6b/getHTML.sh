@@ -14,10 +14,14 @@ doStuff() {
         echo "Getting tagsoup..."
         `wget http://vrici.lojban.org/~cowan/XML/tagsoup/tagsoup-1.2.1.jar &> /dev/null`
     fi
+    echo "Sanitizing html..."    
     `java -jar tagsoup-1.2.1.jar --files ${fname} &> /dev/null`
+    echo "Removing ${fname}..."
     `rm ${fname}`
     echo "Writing data to .csv"
-    `python3 parseHTML.py ${sname}`
+    `python3 ./parseHTML.py ${sname}`
+    echo "Database Submission Successful"
+    echo "Removing ${sname}..."
     `rm ${sname}`
 }
 

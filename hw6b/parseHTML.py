@@ -27,7 +27,6 @@ def insert_row(cursor, csvrow):
     # VALUES (1, 'nasdaq', 'AMD','Advanced Micro Devices',71500381, 12.48, -01.12)
     # ON DUPLICATE KEY UPDATE 
     # exchange='nasdaq, rank = 1, symbol='AMD', company='Advanced Micro Devices',volume=71500380, price=12.48,chng=-01.12;
-    #query = "INSERT INTO stocks(exchange, rank, symbol, company, volume, price, chng) VALUES (%s, %s, %s, %s, %s, %s, %s)"
     query = """
          INSERT INTO stocks(exchange, rank, symbol, company, volume, price, chng)
          VALUES (%s, %s, %s, %s, %s, %s, %s)
@@ -35,7 +34,7 @@ def insert_row(cursor, csvrow):
          exchange=%s, rank=%s,symbol=%s,company=%s,volume=%s,price=%s,chng=%s;
      """
     cursor.execute(query, (exchange, rank, symbol, company, volume, price, change, exchange, rank, symbol, company, volume, price, change))
-    #cursor.execute(query, (exchange, rank, symbol, company, volume, price, change))
+
 arg = sys.argv
 
 try:
@@ -50,7 +49,8 @@ try:
     filename = arg[1]
 except:
     filename = str(getDate())
-    print("File not found, assuming: " + filename)
+    print("File not found")
+    sys.exit()
 
 ifile = open(filename, "r")
 cdom = xml.parse(ifile)
@@ -97,7 +97,7 @@ for row in table:
             csvrow.pop(6) # dont need this table value
             csvrow[2] = csvrow[2].replace("(", "")
             csvrow[2] = csvrow[2].replace(")", "")
-            print(csvrow)
+            #print(csvrow)
             # writeLine(csvrow, ofile)
             cursor = database.cursor()
             insert_row(cursor, csvrow)
@@ -105,8 +105,9 @@ for row in table:
             #DB: print(csvrow), "\n")
         csvrow.clear()
         continue
+
 cursor.close()
-print("Written to database...")
 ofile.close()
 cdom.unlink()
 database.close()
+#print("Written to database...")
