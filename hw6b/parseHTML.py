@@ -23,28 +23,24 @@ def insert_row(cursor, csvrow):
     volume = csvrow[4]
     price = csvrow[5]
     change = csvrow[6]
-    # INSERT INTO stocks(rank, exchange, symbol, company, volume, price, chng)
+    # INSERT INTO stocks(exchange, rank, symbol, company, volume, price, chng)
     # VALUES (1, 'nasdaq', 'AMD','Advanced Micro Devices',71500381, 12.48, -01.12)
     # ON DUPLICATE KEY UPDATE 
-    # rank = 2, exchange='nasdaq', symbol='AMD', company='Advanced Micro Devices',volume=71500380, price=12.48,chng=-01.12;
+    # exchange='nasdaq, rank = 1, symbol='AMD', company='Advanced Micro Devices',volume=71500380, price=12.48,chng=-01.12;
+    #query = "INSERT INTO stocks(exchange, rank, symbol, company, volume, price, chng) VALUES (%s, %s, %s, %s, %s, %s, %s)"
     query = """
-        INSERT INTO stocks(exchange, ranks, symbol, company, volume, price, chng)
-        VALUES ({0}, {1}, {2}, {3}, {4}, {5})
-        ON DUPLICATE KEY UPDATE
-        exchange={0}, rank={1},symbol={1},company={2},volume={3},price={4},change={5}
-    """
-    cursor.execute(query, csvrow)
-
+         INSERT INTO stocks(exchange, rank, symbol, company, volume, price, chng)
+         VALUES (%s, %s, %s, %s, %s, %s, %s)
+         ON DUPLICATE KEY UPDATE
+         exchange=%s, rank=%s,symbol=%s,company=%s,volume=%s,price=%s,chng=%s;
+     """
+    cursor.execute(query, (exchange, rank, symbol, company, volume, price, change, exchange, rank, symbol, company, volume, price, change))
+    #cursor.execute(query, (exchange, rank, symbol, company, volume, price, change))
 arg = sys.argv
 
 try:
-    database = mysql.connector.connect(
-      host="sql.njit.edu",
-      user="md537",
-      passwd="freshen77",
-      database="md537"
+    database = mysql.connector.connect(host="sql.njit.edu", user="md537", password="freshen77", database="md537"
     )
-    cursor = database.cursor()
 except mysql.connector.Error as err:
     print(err)
     database.close()
@@ -99,11 +95,18 @@ for row in table:
             csvrow.pop(4) # remove blank space
             #csvrow.pop(1) # remove rank number
             csvrow.pop(6) # dont need this table value
-            csvrow[1] = csvrow[1].replace("(", "")
-            csvrow[1] = csvrow[1].replace(")", "")
-            writeLine(csvrow, ofile)
+            csvrow[2] = csvrow[2].replace("(", "")
+            csvrow[2] = csvrow[2].replace(")", "")
+            print(csvrow)
+            # writeLine(csvrow, ofile)
+            cursor = database.cursor()
+            insert_row(cursor, csvrow)
+            database.commit()
             #DB: print(csvrow), "\n")
         csvrow.clear()
         continue
+cursor.close()
+print("Written to database...")
 ofile.close()
 cdom.unlink()
+database.close()
